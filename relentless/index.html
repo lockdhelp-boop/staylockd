@@ -261,14 +261,14 @@
       var ua = navigator.userAgent || '';
       var isTikTok = /musical_ly|TikTok|Bytedance|aweme/i.test(ua);
 
-      document.getElementById('downloadBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        if (isTikTok) {
+      if (!isTikTok) {
+        window.location.replace(AFFILIATE);
+      } else {
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+          e.preventDefault();
           document.getElementById('tiktokOverlay').classList.add('show');
-        } else {
-          window.location.href = AFFILIATE;
-        }
-      });
+        });
+      }
     })();
   </script>
   <div class="page">
@@ -277,6 +277,8 @@
 
     <h1 class="headline">Stop scrolling.<br><span>Lock in.</span></h1>
     <p class="subhead">The habit tracker built for people who actually want to change.</p>
+
+    <img class="mockup" src="/LOCKDweb.png" alt="LOCKD App" />
 
     <div class="rating">
       <span class="stars">★★★★★</span>
@@ -290,8 +292,6 @@
       Download on the App Store
     </a>
     <p class="cta-sub">Free · iOS only · No account needed</p>
-
-    <img class="mockup" src="/LOCKDweb.png" alt="LOCKD App" />
 
     <div class="features">
       <div class="feature">
