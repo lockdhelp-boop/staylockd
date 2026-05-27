@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lock In – Download</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Attempt redirect (fails in TikTok, works in browser) -->
+  <script>
+    setTimeout(() => {
+      window.location.href =
+        "https://apps.apple.com/us/app/lockd-daily-habits-focus/id6753994810";
+    }, 300);
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 72px;
+    }
+
+    .notice {
+      background: #1c1c1e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 40px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #e5e5e7;
+    }
+
+    .icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
+      margin: 0 auto 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .store img {
+      width: 180px;
+    }
+
+    /* === EMOJI OVERLAY (ONLY ADDITION) === */
+    .arrow-hint {
+      position: fixed;
+      top: 10px;
+      right: 12px;
+      font-size: 48px;
+      z-index: 9999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Emoji pointing to TikTok menu -->
+  <div class="arrow-hint">↗️</div>
+
+  <div class="wrap">
+
+    <!-- TikTok instruction -->
+    <div class="notice">
+      In the top right, tap the three dots (•••) and select
+      <strong>“Open in browser”</strong> to go to the app
+    </div>
+
+    <!-- App icon -->
+    <img
+      src="app-icon.png"
+      alt="LOCKD App Icon"
+      class="icon"
+    >
+
+    <!-- App name -->
+    <h1>LOCKD: Focus & Habit Tracker</h1>
+
+    <!-- App Store button -->
+    <a
+      class="store"
+      href="https://apps.apple.com/us/app/lockd-daily-habits-focus/id6753994810"
+      target="_blank"
+      rel="noopener"
+    >
+      <img
+        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+        alt="Download on the App Store"
+      >
+    </a>
+
+  </div>
+</body>
+</html>
