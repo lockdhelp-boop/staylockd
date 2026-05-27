@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>LOCKD - Stay Locked In</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <meta name="description" content="LOCKD is the habit tracker and focus app for people who don't quit. Build discipline. Stay locked in." />
+  <meta name="author" content="Tuned Tech LLC" />
+  <meta property="og:title" content="LOCKD - Stay Locked In" />
+  <meta property="og:description" content="The app for people who stay locked in. Track habits, stay focused, build the discipline you've always wanted." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://staylockd.app/" />
+  <meta property="og:image" content="https://staylockd.app/mockup.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LOCKD - Stay Locked In" />
+  <meta name="twitter:description" content="The habit tracker for people who don't quit. Build discipline. Stay locked in." />
+  <meta name="twitter:image" content="https://staylockd.app/mockup.png" />
+  <link rel="canonical" href="https://staylockd.app/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "LOCKD: Daily Habits & Focus",
+    "description": "The habit tracker and focus app for people who stay locked in. Build discipline, track streaks, and stay consistent.",
+    "operatingSystem": "iOS",
+    "applicationCategory": "HealthApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "100",
+      "bestRating": "5"
+    },
+    "url": "https://apps.apple.com/us/app/lockd-life-reset-lock-in/id6753994810",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tuned Tech LLC"
+    }
+  }
+  </script>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #080a0f;
+      --bg2:       #0d1018;
+      --bg3:       #111520;
+      --border:    rgba(255,255,255,.07);
+      --accent:    #4f6fff;
+      --accent2:   #7b9bff;
+      --gold:      #c9a84c;
+      --gold2:     #e8c96a;
+      --text:      #e8eeff;
+      --muted:     #8899cc;
+      --card-bg:   rgba(255,255,255,.03);
+      --card-border: rgba(255,255,255,.08);
+      --radius:    16px;
+      --radius-lg: 24px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Typography ── */
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent2);
+    }
+    h1 { font-size: clamp(36px, 8vw, 68px); font-weight: 800; line-height: 1.08; letter-spacing: -.02em; }
+    h2 { font-size: clamp(28px, 6vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -.02em; }
+    h3 { font-size: clamp(18px, 4vw, 24px); font-weight: 700; line-height: 1.25; }
+
+    /* ── Layout helpers ── */
+    .container { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; }
+    .section--tight { padding: 60px 0; }
+    .text-center { text-align: center; }
+    .mt-4  { margin-top: 16px; }
+    .mt-6  { margin-top: 24px; }
+    .mt-8  { margin-top: 32px; }
+    .mt-12 { margin-top: 48px; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 24px;
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      background: rgba(8,10,15,.88);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 800; letter-spacing: -.02em; flex-shrink: 0;
+      background: linear-gradient(135deg, #fff 30%, var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      flex: 1; justify-content: center;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: rgba(255,255,255,.65);
+      padding: 6px 12px; border-radius: 8px;
+      transition: color .15s, background .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.07); }
+    .nav-links .nav-divider {
+      width: 1px; height: 16px; background: var(--border); margin: 0 4px; flex-shrink: 0;
+    }
+    .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px; font-weight: 600;
+      padding: 8px 18px; border-radius: 50px;
+      transition: background .2s ease, transform .15s ease;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: #3a57f5; transform: translateY(-1px); }
+    /* hide middle nav on small screens */
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 110px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(79,111,255,.13), transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      min-height: 560px;
+    }
+    .hero-left {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 40px 0 60px;
+    }
+    .hero-right {
+      flex: 0 0 52%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+    .hero-right img {
+      width: 100%;
+      max-width: 620px;
+      display: block;
+      filter: drop-shadow(0 30px 60px rgba(79,111,255,.18));
+    }
+
+    /* social proof badges */
+    .hero-proof {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .proof-badge {
+      display: flex; align-items: center; gap: 14px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 14px;
+      padding: 14px 20px;
+      background: rgba(255,255,255,.04);
+    }
+    .proof-badge-icon {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      opacity: .75;
+    }
+    .proof-badge-text strong {
+      display: block; font-size: 22px; font-weight: 800; line-height: 1; color: #fff;
+    }
+    .proof-badge-text span {
+      display: block; font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4;
+    }
+    .proof-badge-stars { color: #f5a623; font-size: 12px; letter-spacing: 2px; margin-top: 4px; display: block; }
+
+    .hero h1 { max-width: 600px; }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #a8bfff 0%, #fff 60%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted); max-width: 460px; margin: 20px 0 0;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+      margin-top: 36px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent) 0%, #2d48d8 100%);
+      color: #fff; font-size: 16px; font-weight: 700;
+      padding: 16px 32px; border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(79,111,255,.35);
+      transition: transform .2s ease, box-shadow .2s ease;
+      letter-spacing: -.01em;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(79,111,255,.45); }
+    .btn-primary svg { flex-shrink: 0; }
+    .hero-note { font-size: 13px; color: var(--muted); margin-top: 14px; }
+    .hero-stats {
+      display: flex; gap: 36px; flex-wrap: wrap;
+      margin-top: 48px;
+    }
+    .hero-stat strong {
+      display: block; font-size: 26px; font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat span { font-size: 13px; color: var(--muted); margin-top: 2px; display: block; }
+
+    /* ── Section header ── */
+    .section-header { text-align: center; }
+    .section-header p { color: var(--muted); font-size: 17px; max-width: 480px; margin: 12px auto 0; line-height: 1.7; }
+
+    /* ── Social proof strip ── */
+    .proof-strip {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .proof-strip-inner {
+      display: flex; align-items: center; gap: 48px;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 10px;
+      white-space: nowrap; color: var(--muted); font-size: 14px; font-weight: 500;
+    }
+    .proof-item strong { color: #fff; }
+    .proof-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border); }
+
+    /* ── Testimonials marquee ── */
+    .reviews-marquee-wrap {
+      margin-top: 48px;
+      overflow: hidden;
+      /* fade edges */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .reviews-marquee-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: reviewsScroll 40s linear infinite;
+    }
+    .reviews-marquee-track:hover { animation-play-state: paused; }
+    @keyframes reviewsScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .t-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      position: relative;
+      flex: 0 0 320px;
+      width: 320px;
+    }
+    .t-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+    .t-stars span { color: #f5a623; font-size: 15px; }
+    .t-quote { font-size: 15px; line-height: 1.65; color: #ccd6ff; margin-bottom: 20px; }
+    .t-author { display: flex; align-items: center; gap: 12px; }
+    .t-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6a4fff);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px; color: #fff; flex-shrink: 0;
+    }
+    .t-name { font-weight: 600; font-size: 15px; }
+    .t-handle { font-size: 13px; color: var(--muted); }
+    .t-badge {
+      position: absolute; top: 20px; right: 20px;
+      font-size: 11px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--accent2);
+      background: rgba(79,111,255,.1); border: 1px solid rgba(79,111,255,.25);
+      padding: 3px 9px; border-radius: 50px;
+    }
+
+    /* ── How it works ── */
+    .hiw-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 56px;
+      position: relative;
+    }
+    /* connector line between steps */
+    .hiw-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: calc(12.5%); right: calc(12.5%);
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(79,111,255,.3) 15%, rgba(79,111,255,.3) 85%, transparent);
+      z-index: 0;
+    }
+    .hiw-step {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 20px 0;
+      position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 56px; height: 56px; flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1px solid rgba(79,111,255,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 20px; color: var(--accent2);
+      margin-bottom: 20px;
+    }
+    .hiw-step h3 { font-size: 17px; margin-bottom: 8px; }
+    .hiw-step p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+    /* ── Features ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 48px;
+    }
+    .feat-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .feat-card:hover { border-color: rgba(79,111,255,.25); transform: translateY(-3px); }
+    .feat-icon {
+      font-size: 26px; margin-bottom: 16px; display: block; line-height: 1;
+    }
+    .feat-card h3 { font-size: 17px; margin-bottom: 8px; }
+    .feat-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .feat-card.featured { background: var(--card-bg); border-color: var(--card-border); }
+
+    /* ── Stats ── */
+    .stats-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    }
+    .stat-block {
+      padding: 40px 24px; text-align: center;
+      border: 1px solid var(--border);
+    }
+    .stat-block strong {
+      display: block; font-size: clamp(32px, 7vw, 52px); font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .stat-block span { font-size: 14px; color: var(--muted); margin-top: 6px; display: block; }
+
+    /* ── Transformation / Manifesto ── */
+    .manifesto {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg3) 50%, var(--bg) 100%);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .manifesto::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(79,111,255,.08), transparent 70%);
+      pointer-events: none;
+    }
+    .manifesto-list {
+      display: flex; flex-direction: column; gap: 12px;
+      margin: 40px auto; max-width: 560px;
+      list-style: none;
+    }
+    .manifesto-list li {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius); padding: 16px 20px;
+      font-size: 16px; font-weight: 500; text-align: left;
+    }
+    .manifesto-list li .check {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(79,111,255,.3), rgba(79,111,255,.1));
+      border: 1px solid rgba(79,111,255,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+
+    /* ── Blog preview ── */
+    .blog-preview-grid {
+      display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 48px;
+    }
+    @media (min-width: 640px) { .blog-preview-grid { grid-template-columns: 1fr 1fr; } }
+    .blog-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color .2s, transform .2s;
+    }
+    .blog-card:hover { border-color: rgba(79,111,255,.3); transform: translateY(-2px); }
+    .blog-card-tag { font-size: 11px; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent2); }
+    .blog-card h3 { font-size: 19px; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; }
+    .blog-card p { font-size: 14px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .blog-card-link { font-size: 14px; font-weight: 600; color: var(--accent2);
+      display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; }
+
+    /* ── Final CTA ── */
+    .cta-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .cta-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 48px;
+    }
+    .cta-left { flex: 1; }
+    .cta-left .eyebrow { display: block; margin-bottom: 16px; }
+    .cta-left h2 { margin: 0; }
+    .cta-left h2 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #a8bfff 0%, #fff 60%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .cta-left p { color: var(--muted); font-size: 17px; margin-top: 14px; line-height: 1.65; }
+    .cta-right {
+      flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+    }
+    .app-store-btn {
+      display: inline-block;
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .app-store-btn:hover { transform: scale(1.04); filter: brightness(1.1); }
+    .app-store-btn img { height: 58px; }
+    .cta-note { font-size: 13px; color: var(--muted); }
+    @media (max-width: 767px) {
+      .cta-inner { flex-direction: column; text-align: center; }
+      .cta-right { align-items: center; width: 100%; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 13px; color: var(--muted);
+    }
+    footer a { color: var(--muted); transition: color .15s; }
+    footer a:hover { color: #fff; }
+    footer .footer-links { display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+
+    /* ── Responsive ── */
+
+    /* Mobile: stack hero */
+    @media (max-width: 767px) {
+      .hero-inner { flex-direction: column; min-height: unset; gap: 0; }
+      .hero-left { padding: 40px 0 24px; text-align: center; }
+      .hero-proof { justify-content: center; }
+      .hero-right { width: 100%; justify-content: center; }
+      .hero-right img { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero h1 { margin: 0 auto; }
+      .hero-sub { margin: 20px auto 0; }
+    }
+
+    @media (max-width: 767px) {
+      .hiw-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .hiw-steps::before { display: none; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 479px) {
+      .hiw-steps { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="nav-logo">LOCKD</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#reviews">Reviews</a>
+      <a href="/blog/">Blog</a>
+      <div class="nav-divider"></div>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-cta" href="https://apps.apple.com/us/app/lockd-life-reset-lock-in/id6753994810" target="_blank" rel="noopener">Download Free</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left: copy -->
+        <div class="hero-left">
+
+          <!-- Social proof badges -->
+          <div class="hero-proof">
+            <div class="proof-badge">
+              <!-- Apple logo -->
+              <div class="proof-badge-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.99zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+              </div>
+              <div class="proof-badge-text">
+                <strong>4.9</strong>
+                <span class="proof-badge-stars">★★★★★</span>
+                <span>App Store rating</span>
+              </div>
+            </div>
+
+            <div class="proof-badge">
+              <!-- Lock icon -->
+              <div class="proof-badge-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              </div>
+              <div class="proof-badge-text">
+                <strong>#1</strong>
+                <span>Habit tracker</span>
+                <span>for discipline</span>
+              </div>
+            </div>
+          </div>
+
+          <h1>Stop drifting.<br><em>Stay locked in.</em></h1>
+          <p class="hero-sub">The habit tracker for people who don't quit.</p>
+
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://apps.apple.com/us/app/lockd-life-reset-lock-in/id6753994810" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.99zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" fill="white"/></svg>
+              Download on App Store
+            </a>
+          </div>
+          <p class="hero-note">Free to download · iOS only</p>
+        </div>
+
+        <!-- Right: mockup -->
+        <div class="hero-right">
+          <img src="mockup.png" alt="LOCKD app screens — Lock In timer, home screen, and rank progress" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Scrolling proof strip ── -->
+  <div class="proof-strip">
+    <div class="proof-strip-inner">
+      <div class="proof-item"><strong>🔒 Streak protected</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>⚡ Daily check-ins</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>📊 Progress tracking</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🎯 Focus mode</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🌑 Dark-first design</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🔥 Accountability streaks</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🏆 Milestone rewards</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>📱 iPhone optimized</strong></div><div class="proof-dot"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="proof-item"><strong>🔒 Streak protected</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>⚡ Daily check-ins</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>📊 Progress tracking</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🎯 Focus mode</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🌑 Dark-first design</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🔥 Accountability streaks</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>🏆 Milestone rewards</strong></div><div class="proof-dot"></div>
+      <div class="proof-item"><strong>📱 iPhone optimized</strong></div><div class="proof-dot"></div>
+    </div>
+  </div>
+
+  <!-- ── Testimonials ── -->
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Real results</p>
+        <h2 class="mt-4">People who chose to lock in</h2>
+        <p>They built a system and stuck to it.</p>
+      </div>
+
+      <div class="reviews-marquee-wrap">
+        <div class="reviews-marquee-track">
+
+          <!-- Set 1 -->
+          <div class="t-card">
+            <div class="t-badge">Verified</div>
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"I tried every habit app out there. LOCKD is the only one that actually made me feel accountable. 47-day streak and not stopping."</p>
+            <div class="t-author">
+              <div class="t-avatar">MJ</div>
+              <div><div class="t-name">Marcus J.</div><div class="t-handle">Personal trainer · Chicago</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-badge">Verified</div>
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"The dark interface, the simplicity. It just works for me. I check in every morning and night. My discipline has genuinely gone up."</p>
+            <div class="t-author">
+              <div class="t-avatar">SR</div>
+              <div><div class="t-name">Sofia R.</div><div class="t-handle">CS student · Miami</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-badge">Verified</div>
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"Built my morning routine in 10 minutes. 3 months later I've hit the gym 5x/week, read 8 books, and finally feel locked in."</p>
+            <div class="t-author">
+              <div class="t-avatar">DK</div>
+              <div><div class="t-name">Daniel K.</div><div class="t-handle">Entrepreneur · NYC</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"I used to quit by Wednesday every week. LOCKD's streak system made me actually care about not breaking the chain."</p>
+            <div class="t-author">
+              <div class="t-avatar">AT</div>
+              <div><div class="t-name">Alyssa T.</div><div class="t-handle">Nurse · Austin</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"Switched from a $25/month app to LOCKD. Does everything I need and more. The focus mode alone is worth it."</p>
+            <div class="t-author">
+              <div class="t-avatar">JW</div>
+              <div><div class="t-name">James W.</div><div class="t-handle">Designer · LA</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"My mindset shifted when I stopped trying and started tracking. LOCKD showed me I was capable of way more than I thought."</p>
+            <div class="t-author">
+              <div class="t-avatar">NP</div>
+              <div><div class="t-name">Nadia P.</div><div class="t-handle">College junior · Seattle</div></div>
+            </div>
+          </div>
+
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <div class="t-card">
+            <div class="t-badge">Verified</div>
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"I tried every habit app out there. LOCKD is the only one that actually made me feel accountable. 47-day streak and not stopping."</p>
+            <div class="t-author">
+              <div class="t-avatar">MJ</div>
+              <div><div class="t-name">Marcus J.</div><div class="t-handle">Personal trainer · Chicago</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-badge">Verified</div>
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"The dark interface, the simplicity. It just works for me. I check in every morning and night. My discipline has genuinely gone up."</p>
+            <div class="t-author">
+              <div class="t-avatar">SR</div>
+              <div><div class="t-name">Sofia R.</div><div class="t-handle">CS student · Miami</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-badge">Verified</div>
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"Built my morning routine in 10 minutes. 3 months later I've hit the gym 5x/week, read 8 books, and finally feel locked in."</p>
+            <div class="t-author">
+              <div class="t-avatar">DK</div>
+              <div><div class="t-name">Daniel K.</div><div class="t-handle">Entrepreneur · NYC</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"I used to quit by Wednesday every week. LOCKD's streak system made me actually care about not breaking the chain."</p>
+            <div class="t-author">
+              <div class="t-avatar">AT</div>
+              <div><div class="t-name">Alyssa T.</div><div class="t-handle">Nurse · Austin</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"Switched from a $25/month app to LOCKD. Does everything I need and more. The focus mode alone is worth it."</p>
+            <div class="t-author">
+              <div class="t-avatar">JW</div>
+              <div><div class="t-name">James W.</div><div class="t-handle">Designer · LA</div></div>
+            </div>
+          </div>
+          <div class="t-card">
+            <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="t-quote">"My mindset shifted when I stopped trying and started tracking. LOCKD showed me I was capable of way more than I thought."</p>
+            <div class="t-author">
+              <div class="t-avatar">NP</div>
+              <div><div class="t-name">Nadia P.</div><div class="t-handle">College junior · Seattle</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats ── -->
+  <section class="stats-section section--tight">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-block">
+          <strong>4.8</strong>
+          <span>App Store rating</span>
+        </div>
+        <div class="stat-block">
+          <strong>10K+</strong>
+          <span>Habits tracked weekly</span>
+        </div>
+        <div class="stat-block">
+          <strong>30+</strong>
+          <span>Day average streak</span>
+        </div>
+        <div class="stat-block">
+          <strong>Free</strong>
+          <span>To download &amp; start</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How it works ── -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">How it works</p>
+        <h2 class="mt-4">Four steps to locked in</h2>
+        <p>No overwhelm. No fluff. Just a simple system that makes consistency feel effortless.</p>
+      </div>
+
+      <div class="hiw-steps mt-12">
+        <div class="hiw-step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Set your habits</h3>
+            <p>Choose what matters: gym, journaling, deep work, cold shower. Add it in 10 seconds.</p>
+          </div>
+        </div>
+        <div class="hiw-step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Check in daily</h3>
+            <p>One tap to mark a habit done. The streak starts building immediately.</p>
+          </div>
+        </div>
+        <div class="hiw-step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Watch your streak</h3>
+            <p>See your consistency grow. Every day you don't quit makes the next day easier.</p>
+          </div>
+        </div>
+        <div class="hiw-step">
+          <div class="step-num">4</div>
+          <div>
+            <h3>Become the person</h3>
+            <p>Identity follows action. After 30 days you won't need motivation. You'll just be locked in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Features ── -->
+  <section class="section" id="features" style="background: var(--bg2); border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Features</p>
+        <h2 class="mt-4">Built for the ones<br>who actually want it</h2>
+        <p>Every tool you need to build discipline and nothing you don't.</p>
+      </div>
+
+      <div class="features-grid mt-12">
+
+        <div class="feat-card">
+          <span class="feat-icon">🔒</span>
+          <h3>Lock-In Streaks</h3>
+          <p>Your streak resets if you miss a day. That pressure is the point. It creates accountability you can't fake.</p>
+        </div>
+
+        <div class="feat-card">
+          <span class="feat-icon">⚡</span>
+          <h3>Daily Check-Ins</h3>
+          <p>One tap to mark a habit done. A simple ritual that keeps you in control every day.</p>
+        </div>
+
+        <div class="feat-card">
+          <span class="feat-icon">📊</span>
+          <h3>Progress Stats</h3>
+          <p>Track your completion rate, longest streaks, and best weeks all in one clean view.</p>
+        </div>
+
+        <div class="feat-card">
+          <span class="feat-icon">🎯</span>
+          <h3>Focus Mode</h3>
+          <p>Block distractions and enter deep work. One session at a time, fully locked in.</p>
+        </div>
+
+        <div class="feat-card">
+          <span class="feat-icon">🔔</span>
+          <h3>Smart Reminders</h3>
+          <p>Custom notifications built to make you act, not just snooze and forget.</p>
+        </div>
+
+        <div class="feat-card">
+          <span class="feat-icon">🌑</span>
+          <h3>Dark-First Design</h3>
+          <p>Built for late nights and early mornings. Clean, minimal, and easy on your eyes.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Manifesto / Identity ── -->
+  <section class="section manifesto">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">The locked in identity</p>
+        <h2 class="mt-4">This is for the ones<br>who don't make excuses</h2>
+        <p>Most people know what they need to do. LOCKD is for the ones who actually do it.</p>
+      </div>
+
+      <ul class="manifesto-list">
+        <li>
+          <span class="check">✓</span>
+          You wake up before you have to
+        </li>
+        <li>
+          <span class="check">✓</span>
+          You don't skip leg day, rest day, or study day
+        </li>
+        <li>
+          <span class="check">✓</span>
+          Your goals aren't posts. They're promises you keep to yourself
+        </li>
+        <li>
+          <span class="check">✓</span>
+          You track because you take it seriously
+        </li>
+        <li>
+          <span class="check">✓</span>
+          You're building something. Quietly. Consistently. Every day
+        </li>
+      </ul>
+
+      <div class="text-center">
+        <a class="btn-primary" href="https://apps.apple.com/us/app/lockd-life-reset-lock-in/id6753994810" target="_blank" rel="noopener">
+          Start locking in today
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Blog preview ── -->
+  <section class="section" style="border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">From the blog</p>
+        <h2 class="mt-4">Lock in your knowledge</h2>
+        <p>Habits, focus, and discipline. The stuff that actually moves the needle.</p>
+      </div>
+      <div class="blog-preview-grid mt-12">
+        <a class="blog-card" href="/blog/why-your-habits-fail">
+          <div class="blog-card-tag">Habits</div>
+          <h3>Why Your Habits Always Fail in the First 30 Days</h3>
+          <p>Most people quit before their habits ever start working. Here's the real reason why and the simple fix that sticks.</p>
+          <span class="blog-card-link">Read more →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Final CTA ── -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <span class="eyebrow">Download now</span>
+          <h2>Your streak starts<br><em>today</em></h2>
+          <p>Free to download. No excuses.<br>Just open the app and check in.</p>
+        </div>
+        <div class="cta-right">
+          <a class="app-store-btn" href="https://apps.apple.com/us/app/lockd-life-reset-lock-in/id6753994810" target="_blank" rel="noopener">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
+          </a>
+          <p class="cta-note">iOS 16+ · iPhone only · Free to download</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="mailto:lockdhelp@gmail.com">Contact</a>
+    </div>
+    <div>© 2025 LOCKD by Tuned Tech LLC. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
