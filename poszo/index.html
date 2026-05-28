@@ -308,16 +308,18 @@
     (function() {
       var AFFILIATE = 'https://apps.apple.com/us/app/lockd-life-reset-lock-in/id6753994810?ppid=d52cd9ac-fcd3-4902-83f2-b6cf819dc60a';
       var ua = navigator.userAgent || '';
-      var isTikTok = /musical_ly|TikTok|Bytedance|aweme/i.test(ua);
+      var isTikTok = /musical_ly|TikTok|Bytedance|ByteDance|aweme/i.test(ua);
 
+      // Real browsers redirect immediately — they never see the button
       if (!isTikTok) {
         window.location.replace(AFFILIATE);
-      } else {
-        document.getElementById('downloadBtn').addEventListener('click', function(e) {
-          e.preventDefault();
-          document.getElementById('tiktokOverlay').classList.add('show');
-        });
       }
+
+      // Always intercept the button so TikTok (detected or not) shows the overlay
+      document.getElementById('downloadBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('tiktokOverlay').classList.add('show');
+      });
     })();
   </script>
 </body>
